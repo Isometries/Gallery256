@@ -12,5 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
-/app/res/drawable/*.bmp
-/app/res/drawable/*.jpg
+app/src/main/res/drawable-v24/*.bmp
+app/src/main/res/drawable-v24/*.jpg
+
