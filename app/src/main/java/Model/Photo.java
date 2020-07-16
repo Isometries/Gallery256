@@ -10,25 +10,24 @@ public class Photo {
         fill in place holder intance vars
     */
 
-    String imageLocation;
-    Bitmap thumbNail;
+    String photoLocation, name;
+    byte[] thumbnail;
+    int albumID;
 
 
-    public Photo(String imageLocation, Bitmap thumbNail)
+
+    public Photo(String name, String photoLocation, byte[] thumbNail,  int albumID)
     {
-        this.imageLocation = imageLocation;
-        this.thumbNail = thumbNail;
+        this.photoLocation = photoLocation;
+        this.thumbnail = thumbNail;
+        this.albumID = albumID;
+        this.name = name;
     }
 
-    //opposite of writeToParcel
-    protected Photo(Parcel in)
-    {
 
-    }
-
-    public Bitmap getThumbNail()
+    public byte[] getThumbNail()
     {
-        return thumbNail;
+        return thumbnail;
     }
 
 }

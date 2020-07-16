@@ -15,9 +15,19 @@
 
     <fragment
         android:id="@+id/photo_fragment"
-        class = "com.iso.gallery256.View.activities.PhotoLayoutFragment"
+        class="com.iso.gallery256.View.activities.PhotoLayoutFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="173dp"
         tools:layout_editor_absoluteY="212dp" />
+
+    <Button
+        android:id="@+id/album_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="27dp"
+        android:text="Add Album"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

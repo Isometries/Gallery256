@@ -16,6 +16,7 @@ import com.iso.gallery256.R;
 import java.util.ArrayList;
 
 import Model.Photo;
+import Model.Utils;
 
 public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -45,7 +46,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ((CustomPhotoAdapter) holder).setPhoto(photos.get(position));
     }
 
-    //TODO fill out all other needed methods - much will need to be threaded
     public Photo getItem(int i)
     {
         return photos.get(i);
@@ -57,7 +57,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     //textview for testing
-    public class CustomPhotoAdapter extends RecyclerView.ViewHolder {
+    public static class CustomPhotoAdapter extends RecyclerView.ViewHolder {
 
         private ImageView cardView;
         public CustomPhotoAdapter(@NonNull View itemView)
@@ -69,13 +69,10 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public void setPhoto(Photo photo)
         {
-            cardView.setImageBitmap(photo.getThumbNail());
+            byte[] imageBytes = photo.getThumbNail();
+            cardView.setImageBitmap(Utils.BytestoBMP(imageBytes));
         }
 
-        public void setURI()
-        {
-
-        }
 
     }
 }

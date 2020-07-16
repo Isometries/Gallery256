@@ -1,7 +1,5 @@
 package com.iso.gallery256.View.activities;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +29,7 @@ public class PhotoLayoutFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         presenter = new FragmentPresenter(this);
+
     }
 
     @Override
@@ -48,15 +47,13 @@ public class PhotoLayoutFragment extends Fragment
         this.recycler = getView().findViewById(R.id.photo_layout);
         this.gridLayout = new GridLayoutManager(getActivity(), 3); //set this dynamically
         this.recycler.setLayoutManager(gridLayout);
-        this.recycler.setAdapter(new PhotoAdapter(this, testFunction())); //send Photo objects to adapter
+        this.recycler.setAdapter(new PhotoAdapter(this, presenter.getPhotos())); //send Photo objects to adapter
     }
-
 
     @Override
     public void onStart()
     {
         super.onStart();
-        Log.i("Fragment", "started");
     }
 
 }
