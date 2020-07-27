@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.activities.AlbumView;
+import com.iso.gallery256.View.activities.HomeView;
 import com.iso.gallery256.View.activities.MainActivity;
 
 public class MainPresenter implements PresenterBase {
@@ -16,15 +16,17 @@ public class MainPresenter implements PresenterBase {
      */
 
     private MainActivity mainContext;
+    private String passphrase;
 
     public MainPresenter(MainActivity mainContext)
     {
         this.mainContext = mainContext;
     }
 
-    public void sendPassword(EditText password)
+    public void setParams(EditText password)
     {
         //check decryption succes
+        this.passphrase = password.getText().toString();
         String PLACEHOLDER;
         if (true) {
             mainContext.showMessage("Decryption Successful");
@@ -45,7 +47,9 @@ public class MainPresenter implements PresenterBase {
         if (v.getId() == R.id.unlock_button) {
             // do decryption
 
-            Intent intent = new Intent(mainContext.getApplicationContext(), AlbumView.class);
+            Intent intent = new Intent(mainContext.getApplicationContext(), HomeView.class);
+            intent.putExtra("name", "");
+            intent.putExtra("password", passphrase);
             mainContext.startActivity(intent);
         }
         //add password reset logic here

@@ -3,77 +3,67 @@ package com.iso.gallery256.View.presenters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.view.View;
+import android.util.Log;
+
 
 import java.io.File;
+import java.net.URI;
+import java.security.InvalidKeyException;
 
-import Model.FileHandler;
-import Model.Utils;
+import Crypto.EncryptionHelper;
+import Utils.Conversions;
 import Model.database.AlbumDatabase;
+import Model.database.PhotoDatabase;
 
-public class PhotoPresenter implements PresenterBase {
 
-     /* TO DO
-        flesh-out all model classes
-     */
+public class PhotoPresenter {
+
 
     private Activity mainContext;
-    private AlbumDatabase database; //must inherent from base  database
-    private FileHandler fileHandler;
+    private AlbumDatabase albumDatabase;
+    private PhotoDatabase photoDatabase;
+    private EncryptionHelper cryptoStream;
 
     public PhotoPresenter(Activity mainContext)
     {
         this.mainContext = mainContext;
-        this.database = new AlbumDatabase(mainContext);
-        this.fileHandler = new FileHandler(mainContext);
+        this.albumDatabase = new AlbumDatabase(mainContext);
+        this.photoDatabase = new PhotoDatabase(mainContext);
+        this.cryptoStream = new EncryptionHelper(mainContext);
     }
 
-//    public ArrayList<Photo> getPhotos()
-//    {
-//        //decrypt photos and populate the fragment
-//        return database.getAlbums();
-//    }
 
     //MUST BE THREADED
     @SuppressLint("NewApi")
-    public void addAlbum(Intent data, ContentResolver contentResolver)
+    public void addAlbum(Intent data, ContentResolver contentResolver) throws InvalidKeyException
     {
         Uri imageUri = data.getData();
-        File photoFile = Utils.getFilefromUri(imageUri, contentResolver, mainContext);
+        File photoFile = Conversions.getFilefromUri(imageUri, contentResolver, mainContext);
+        String name = Long.toString(albumDatabase.getSize());
+        File encryptedFile  = Conversions.createEncryptedPhoto(photoFile, mainContext);
+        String photoLocation = encryptedFile.toURI().toString();
 
-        byte[] imageArray = Utils.getBytesfromFile(photoFile);
-        byte[] thumbnail = Utils.getThumbnailfromFile(imageArray);
-        //add name prompt later
-        database.addAlbum("TEST", "TEST", thumbnail, 1);
+        String fileName = Conversions.getFileNamefromURI(URI.create(photoLocation));
+        byte[] imageArray = Conversions.getBytesfromFile(photoFile);
+        byte[] thumbnail = cryptoStream.encryptByteArray(Conversions.getThumbnailfromFile(imageArray), fileName);
+
+        albumDatabase.addAlbum(name, fileName, thumbnail, 1);
+        photoDatabase.addPhoto(name, photoLocation, thumbnail, 1);
     }
 
-    //MUST BE THREADED - ADD PHOTO TO ALBUM
-    public void addPhoto(Intent data, ContentResolver contentResolver)
+    public void addPhoto(Intent data, String albumName,  ContentResolver contentResolver)
     {
+        Uri imageUri = data.getData();
+        File photoFile = Conversions.getFilefromUri(imageUri, contentResolver, mainContext);
 
-    }
+        byte[] imageArray = Conversions.getBytesfromFile(photoFile);
+        byte[] thumbnail = Conversions.getThumbnailfromFile(imageArray);
 
-    @Override
-    public void onResume() {
+        File encryptedFile  = Conversions.createEncryptedPhoto(photoFile, mainContext);
 
-    }
-
-    @Override
-    public void onItemClicked(View v)
-    {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
-    }
-
-    @Override
-    public Context getMainContext() {
-        return null;
+        Log.i("URI : ", encryptedFile.toURI().toString());
+        photoDatabase.addPhoto(albumName, encryptedFile.toURI().toString(), thumbnail, 1);
     }
 }

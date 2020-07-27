@@ -14,11 +14,7 @@ import com.iso.gallery256.R;
 import com.iso.gallery256.View.adapters.PhotoAdapter;
 import com.iso.gallery256.View.presenters.FragmentPresenter;
 
-import java.util.ArrayList;
-
-import Model.Photo;
-
-public class PhotoLayoutFragment extends Fragment
+public class PhotoDisplayFragment extends Fragment
 {
     private RecyclerView recycler;
     private FragmentPresenter presenter;
@@ -47,8 +43,24 @@ public class PhotoLayoutFragment extends Fragment
         this.recycler = getView().findViewById(R.id.photo_layout);
         this.gridLayout = new GridLayoutManager(getActivity(), 3); //set this dynamically
         this.recycler.setLayoutManager(gridLayout);
-        this.recycler.setAdapter(new PhotoAdapter(this, presenter.getPhotos())); //send Photo objects to adapter
+        this.recycler.setAdapter(new PhotoAdapter(this,
+                presenter.getPhotos(getActivity(),
+                        getActivity()
+                                    .getIntent()
+                                    .getExtras()
+                                    .getString("name"))
+                )
+        );
     }
+
+//    @Override
+//    public void onResume()
+//    {
+//        super.onResume();
+//
+//    }
+
+
 
     @Override
     public void onStart()

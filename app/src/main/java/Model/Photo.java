@@ -24,6 +24,15 @@ public class Photo {
         this.name = name;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getPhotoLocation()
+    {
+        return photoLocation;
+    }
 
     public byte[] getThumbNail()
     {

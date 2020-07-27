@@ -3,8 +3,10 @@ package Model.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -61,17 +63,19 @@ public abstract class BaseDatabase extends SQLiteOpenHelper {
         cValues.put(DatabaseContract.DataTable.KEY_ALBUM_ID, albumID);
 
         db.insert(DatabaseContract.DataTable.TABLE_DESCRIPTION, null, cValues);
+        Log.i("Photo added: ", " " + name);
         db.close();
     }
 
-    public ArrayList<Photo> getPhotos(String name)
+    public ArrayList<Photo> getPhotos(String albumName)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Photo> photoList = new ArrayList<>();
         String query = "SELECT name, photo_location, thumbnail, album_id FROM "
                 + DatabaseContract.DataTable.TABLE_DESCRIPTION
-                + " WHERE name LIKE '%name%'";
-        Cursor cursor = db.rawQuery(query, null);
+                + " WHERE " + DatabaseContract.DataTable.KEY_NAME + "=?";
+        String[] searchParam = new String[] {albumName};
+        Cursor cursor = db.rawQuery(query, searchParam);
 
         while (cursor.moveToNext()) {
             Photo entry = new Photo(
@@ -82,7 +86,14 @@ public abstract class BaseDatabase extends SQLiteOpenHelper {
             );
             photoList.add(entry);
         }
+        Log.i("FOUND", " "+albumName);
         db.close();
         return photoList;
+    }
+
+    public long getSize()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return DatabaseUtils.queryNumEntries(db, DatabaseContract.DataTable.TABLE_DESCRIPTION);
     }
 }

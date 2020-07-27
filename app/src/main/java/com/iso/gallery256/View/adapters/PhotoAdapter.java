@@ -1,6 +1,8 @@
 package com.iso.gallery256.View.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +14,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iso.gallery256.R;
+import com.iso.gallery256.View.activities.AlbumView;
+import com.iso.gallery256.View.activities.PhotoZoomView;
 
+import java.net.URI;
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 
+import Crypto.EncryptionHelper;
 import Model.Photo;
-import Model.Utils;
+import Utils.Conversions;
 
 public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -36,14 +43,18 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.row_layout, parent, false);
-        CustomPhotoAdapter vh = new CustomPhotoAdapter(v);
+        CustomPhotoAdapter vh = new CustomPhotoAdapter(v, parent.getContext());
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
     {
-        ((CustomPhotoAdapter) holder).setPhoto(photos.get(position));
+        try {
+            ((CustomPhotoAdapter) holder).setPhoto(photos.get(position));
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
     }
 
     public Photo getItem(int i)
@@ -56,23 +67,47 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return photos.size();
     }
 
-    //textview for testing
-    public static class CustomPhotoAdapter extends RecyclerView.ViewHolder {
+    public static class CustomPhotoAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView cardView;
-        public CustomPhotoAdapter(@NonNull View itemView)
+        private Photo photo;
+        private Context context;
+        private EncryptionHelper cryptoStream;
+
+        public CustomPhotoAdapter(@NonNull View itemView, Context context)
         {
             super(itemView);
-//            layout = fragment.getView().findViewById(R.id.card_view);
             cardView = itemView.findViewById(R.id.image);
+            this.context = context;
+            cardView.setOnClickListener(this);
+            cryptoStream = new EncryptionHelper(context);
         }
 
-        public void setPhoto(Photo photo)
+        public void setPhoto(Photo photo) throws InvalidKeyException
         {
-            byte[] imageBytes = photo.getThumbNail();
-            cardView.setImageBitmap(Utils.BytestoBMP(imageBytes));
+            byte[] ciphertext = photo.getThumbNail();
+            String fileName = Conversions.getFileNamefromURI(URI.create(photo.getPhotoLocation()));
+            byte[] plaintext = cryptoStream.decryptByteArray(ciphertext, fileName);
+
+            this.photo = photo;
+            cardView.setImageBitmap(Conversions.BytestoBMP(plaintext));
         }
 
+        @Override
+        public void onClick(View v)
+        {
+            //also handle opening photo view
+            if (context instanceof AlbumView) {
+                Intent myIntent = new Intent(context, PhotoZoomView.class);
+                myIntent.putExtra("location", photo.getPhotoLocation());
+                context.startActivity(myIntent);
+            } else {
+                Intent myIntent = new Intent(context, AlbumView.class);
+                myIntent.putExtra("name", photo.getName()); //Optional parameters
+                Log.i("ALBUM NAME ", photo.getName());
+                context.startActivity(myIntent);
+            }
+        }
 
     }
 }
