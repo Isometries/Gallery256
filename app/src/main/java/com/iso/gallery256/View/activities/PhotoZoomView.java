@@ -25,9 +25,7 @@ public class PhotoZoomView extends AppCompatActivity {
 
         Intent intent = getIntent();
         location = intent.getStringExtra("location");
-
         presenter = new PhotoZoomViewPresenter(this, URI.create(location));
-
         photoView = (PhotoView) findViewById(R.id.photo_view);
         setPhoto();
 
@@ -35,7 +33,6 @@ public class PhotoZoomView extends AppCompatActivity {
 
     protected void setPhoto()
     {
-        Log.d("PhotoView URI: ", location);
-        photoView.setImageURI(android.net.Uri.parse(location));
+        photoView.setImageBitmap(presenter.getPhoto());
     }
 }

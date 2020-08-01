@@ -22,6 +22,7 @@ public class AlbumView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_view);
+        Log.d("AlbumView Intent", getIntent().getStringExtra("password"));
         this.presenter = new PhotoPresenter(this);
         this.fragment = (PhotoDisplayFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_photo);
         addPhotoButton = (Button) findViewById(R.id.addPhoto);

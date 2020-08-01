@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.security.InvalidKeyException;
 import java.util.UUID;
 
@@ -60,6 +61,20 @@ public class FileHandler {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public byte[] decryptURI(URI uri)
+    {
+        File encryptedFile = new File(uri);
+        byte[] ciphertext = Conversions.getBytesfromFile(encryptedFile);
+        byte[] plaintext = new byte[0];
+        try {
+            plaintext = cryptoStream.decryptByteArray(ciphertext, Conversions.getFileNamefromURI(uri));
+
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+        return plaintext;
     }
 
 }

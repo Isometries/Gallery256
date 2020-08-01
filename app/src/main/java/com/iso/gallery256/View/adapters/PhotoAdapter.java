@@ -1,5 +1,6 @@
 package com.iso.gallery256.View.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -100,11 +101,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (context instanceof AlbumView) {
                 Intent myIntent = new Intent(context, PhotoZoomView.class);
                 myIntent.putExtra("location", photo.getPhotoLocation());
+//                Log.d("HomeView Intent", context.getStringExtra("password"));
+                myIntent.putExtra("password", ((Activity) context).getIntent().getStringExtra("password"));
                 context.startActivity(myIntent);
             } else {
                 Intent myIntent = new Intent(context, AlbumView.class);
                 myIntent.putExtra("name", photo.getName()); //Optional parameters
+                myIntent.putExtra("password", ((Activity) context).getIntent().getStringExtra("password"));
                 Log.i("ALBUM NAME ", photo.getName());
+
                 context.startActivity(myIntent);
             }
         }
