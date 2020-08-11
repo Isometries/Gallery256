@@ -16,10 +16,12 @@ public class AlbumDatabase extends BaseDatabase {
         super(context, DB_NAME, DB_VERSION);
     }
 
+    @Override
     public ArrayList<Photo> getAlbums()
     {
         return getPhotos();
     }
+
 
     public void addAlbum(String name, String photoLocation, byte[] thumbnail, int albumID)
     {

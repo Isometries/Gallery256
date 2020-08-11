@@ -52,6 +52,8 @@ public abstract class BaseDatabase extends SQLiteOpenHelper {
         return photoList;
     }
 
+    public abstract ArrayList<Photo> getAlbums();
+
     public void addPhoto(String name, String photoLocation, byte[] thumbnail, int albumID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
