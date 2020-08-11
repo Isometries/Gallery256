@@ -1,10 +1,10 @@
-package Model.database;
+package com.iso.gallery256.Model.database;
 
 import android.content.Context;
 
 import java.util.ArrayList;
 
-import Model.Photo;
+import com.iso.gallery256.Model.Photo;
 
 public class AlbumDatabase extends BaseDatabase {
     private static final int DB_VERSION = 1;

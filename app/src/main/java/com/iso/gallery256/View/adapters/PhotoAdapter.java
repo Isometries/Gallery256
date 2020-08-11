@@ -22,9 +22,9 @@ import java.net.URI;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 
-import Crypto.EncryptionHelper;
-import Model.Photo;
-import Utils.Conversions;
+import com.iso.gallery256.Crypto.EncryptionHelper;
+import com.iso.gallery256.Model.Photo;
+import com.iso.gallery256.Utils.Conversions;
 
 public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

@@ -3,13 +3,11 @@ package com.iso.gallery256.View.presenters;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.iso.gallery256.View.activities.PhotoZoomView;
-
 import java.net.URI;
 
-import Crypto.EncryptionHelper;
-import Utils.Conversions;
-import Utils.FileHandler;
+import com.iso.gallery256.Crypto.EncryptionHelper;
+import com.iso.gallery256.Utils.Conversions;
+import com.iso.gallery256.Utils.FileHandler;
 
 public class PhotoZoomViewPresenter {
 

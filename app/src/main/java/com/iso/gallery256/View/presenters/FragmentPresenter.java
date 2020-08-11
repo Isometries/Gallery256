@@ -11,9 +11,9 @@ import com.iso.gallery256.View.activities.HomeView;
 
 import java.util.ArrayList;
 
-import Model.Photo;
-import Model.database.AlbumDatabase;
-import Model.database.PhotoDatabase;
+import com.iso.gallery256.Model.Photo;
+import com.iso.gallery256.Model.database.AlbumDatabase;
+import com.iso.gallery256.Model.database.PhotoDatabase;
 
 
 public class FragmentPresenter {

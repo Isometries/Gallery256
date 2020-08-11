@@ -1,4 +1,4 @@
-package Utils;
+package com.iso.gallery256.Utils;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,7 +10,7 @@ import java.net.URI;
 import java.security.InvalidKeyException;
 import java.util.UUID;
 
-import Crypto.EncryptionHelper;
+import com.iso.gallery256.Crypto.EncryptionHelper;
 
 public class FileHandler {
 

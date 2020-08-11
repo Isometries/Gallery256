@@ -1,4 +1,4 @@
-package Model.database;
+package com.iso.gallery256.Model.database;
 
 import android.content.Context;
 

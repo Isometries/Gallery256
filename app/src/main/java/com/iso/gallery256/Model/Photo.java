@@ -1,8 +1,4 @@
-package Model;
-
-import android.graphics.Bitmap;
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.iso.gallery256.Model;
 
 public class Photo {
 

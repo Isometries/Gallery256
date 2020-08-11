@@ -1,4 +1,4 @@
-package Crypto;
+package com.iso.gallery256.Crypto;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,11 +6,7 @@ import android.content.Intent;
 import android.util.Base64;
 import android.util.Log;
 
-import androidx.security.crypto.MasterKey;
-
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -23,7 +19,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;

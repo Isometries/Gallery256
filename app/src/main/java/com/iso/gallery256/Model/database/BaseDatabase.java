@@ -1,4 +1,4 @@
-package Model.database;
+package com.iso.gallery256.Model.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import Model.Photo;
+import com.iso.gallery256.Model.Photo;
 
 public abstract class BaseDatabase extends SQLiteOpenHelper {
 

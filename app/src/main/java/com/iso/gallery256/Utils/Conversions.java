@@ -1,4 +1,4 @@
-package Utils;
+package com.iso.gallery256.Utils;
 
 import android.content.ContentResolver;
 import android.content.Context;

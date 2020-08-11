@@ -12,10 +12,10 @@ import java.io.File;
 import java.net.URI;
 import java.security.InvalidKeyException;
 
-import Crypto.EncryptionHelper;
-import Utils.Conversions;
-import Model.database.AlbumDatabase;
-import Model.database.PhotoDatabase;
+import com.iso.gallery256.Crypto.EncryptionHelper;
+import com.iso.gallery256.Utils.Conversions;
+import com.iso.gallery256.Model.database.AlbumDatabase;
+import com.iso.gallery256.Model.database.PhotoDatabase;
 
 
 public class PhotoPresenter {
