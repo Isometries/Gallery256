@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.iso.gallery256.R;
 import com.iso.gallery256.View.presenters.PhotoPresenter;
 
+import java.security.InvalidKeyException;
+
 public class AlbumView extends AppCompatActivity {
 
     PhotoPresenter presenter;
@@ -53,7 +55,11 @@ public class AlbumView extends AppCompatActivity {
 
             case 1:
                 if (data != null) {
-                    presenter.addPhoto(data, albumName,  getContentResolver());
+                    try {
+                        presenter.addPhoto(data, albumName,  getContentResolver());
+                    } catch (InvalidKeyException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
         }

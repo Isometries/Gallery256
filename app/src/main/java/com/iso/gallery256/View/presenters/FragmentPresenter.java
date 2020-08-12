@@ -41,12 +41,10 @@ public class FragmentPresenter {
         if (context instanceof HomeView){
             ArrayList<Photo> albums = new ArrayList<>();
             handler.post(new DatabaseQueryRunnable(albumDatabase, albums, null));
-
             return albums;
         } else {
             ArrayList<Photo> photos = new ArrayList<>();
             handler.post(new DatabaseQueryRunnable(photoDatabase, photos, name));
-
             return photos;
         }
 

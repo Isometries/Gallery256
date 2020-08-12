@@ -12,6 +12,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -79,6 +80,15 @@ public class EncryptionHelper {
                     Base64.encodeToString(derivedKey.getEncoded(), Base64.DEFAULT));
 
             cipher.init(Cipher.ENCRYPT_MODE, derivedKey, parameterSpec);
+            Log.d("encryptByteArray", "EncryptedSize: " + plaintext.length);
+            //test block
+            {
+                byte[] test = cipher.doFinal(plaintext);
+                if (Arrays.equals(test, plaintext)) {
+                    Log.d("encryptByteArray", "Error encryptng");
+                    System.exit(1);
+                }
+            }
             return cipher.doFinal(plaintext);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

@@ -87,8 +87,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void setPhoto(Photo photo) throws InvalidKeyException
         {
             byte[] ciphertext = photo.getThumbNail();
-            String fileName = Conversions.getFileNamefromURI(URI.create(photo.getPhotoLocation()));
-            byte[] plaintext = cryptoStream.decryptByteArray(ciphertext, fileName);
+//            String fileName = Conversions.getFileNamefromURI(URI.create(photo.getPhotoLocation()));
+            byte[] plaintext = cryptoStream.decryptByteArray(ciphertext, photo.getPhotoLocation());
 
             this.photo = photo;
             cardView.setImageBitmap(Conversions.BytestoBMP(plaintext));

@@ -25,6 +25,7 @@ public class DatabaseQueryRunnable implements Runnable {
         Log.d("Threading", "Running...");
         ArrayList<Photo> tmp = new ArrayList<>();
         if (name != null) {
+            Log.d("Threading", name);
             tmp = database.getPhotos(name);
 
         } else {

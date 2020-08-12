@@ -45,15 +45,15 @@ public class PhotoPresenter {
         File encryptedFile  = Conversions.createEncryptedPhoto(photoFile, mainContext);
         String photoLocation = encryptedFile.toURI().toString();
 
-        String fileName = Conversions.getFileNamefromURI(URI.create(photoLocation));
+//        String fileName = Conversions.getFileNamefromURI(URI.create(photoLocation));
         byte[] imageArray = Conversions.getBytesfromFile(photoFile);
-        byte[] thumbnail = cryptoStream.encryptByteArray(Conversions.getThumbnailfromFile(imageArray), fileName);
+        byte[] thumbnail = cryptoStream.encryptByteArray(Conversions.getThumbnailfromFile(imageArray), photoLocation);
 
-        albumDatabase.addAlbum(name, fileName, thumbnail, 1);
+        albumDatabase.addAlbum(name, photoLocation, thumbnail, 1);
         photoDatabase.addPhoto(name, photoLocation, thumbnail, 1);
     }
 
-    public void addPhoto(Intent data, String albumName,  ContentResolver contentResolver)
+    public void addPhoto(Intent data, String albumName,  ContentResolver contentResolver) throws InvalidKeyException
     {
         Uri imageUri = data.getData();
         File photoFile = Conversions.getFilefromUri(imageUri, contentResolver, mainContext);
@@ -61,9 +61,11 @@ public class PhotoPresenter {
         byte[] imageArray = Conversions.getBytesfromFile(photoFile);
         byte[] thumbnail = Conversions.getThumbnailfromFile(imageArray);
 
-        File encryptedFile  = Conversions.createEncryptedPhoto(photoFile, mainContext);
 
-        Log.i("URI : ", encryptedFile.toURI().toString());
-        photoDatabase.addPhoto(albumName, encryptedFile.toURI().toString(), thumbnail, 1);
+        File encryptedFile  = Conversions.createEncryptedPhoto(photoFile, mainContext);
+        String fileName = Conversions.getFileNamefromURI(encryptedFile.toURI());
+        Log.i("URI : ", fileName);
+        byte[] encryptedThumbnail = cryptoStream.encryptByteArray(thumbnail, encryptedFile.toURI().toString());
+        photoDatabase.addPhoto(albumName, encryptedFile.toURI().toString(), encryptedThumbnail, 1);
     }
 }
