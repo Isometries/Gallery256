@@ -10,3 +10,18 @@ This project is a work in progress. Many features are not yet implemented. This 
 
 Images are copied over from the file-system, where they are then encrypted with a user-chosen symmetric key using android's 256 AES implementation. The encrypted images are then stored in the app's internal storage, and thumbnail data is encrypted before being stored in the SQLIte database.
 
+
+# Planned
+
+ - Allow for the app to connect to a remote Node.js server
+ 
+    - Store encrypted photos in a MongoDB
+  
+    - Support exporting photos to a plaintext state on a users' computer
+
+
+
+ - General UI improvements
+
+
+ - Bug fixes
