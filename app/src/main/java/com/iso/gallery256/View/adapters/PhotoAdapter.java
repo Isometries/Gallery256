@@ -38,6 +38,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         fragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public Fragment getFragment()
+    {
+        return fragment;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) //sety size of cards here

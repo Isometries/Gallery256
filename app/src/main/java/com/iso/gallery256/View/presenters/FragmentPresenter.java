@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import com.iso.gallery256.Model.Photo;
 import com.iso.gallery256.Model.database.AlbumDatabase;
 import com.iso.gallery256.Model.database.PhotoDatabase;
+import com.iso.gallery256.View.adapters.PhotoAdapter;
 
 
 public class FragmentPresenter {
@@ -25,27 +26,26 @@ public class FragmentPresenter {
     private AlbumDatabase albumDatabase; //must inherent from base  database
     private PhotoDatabase photoDatabase;
     private HandlerThread handlerThread;
+    private PhotoAdapter adapter;
 
-    public FragmentPresenter(Fragment mainFragment)
+    public FragmentPresenter(Fragment mainFragment, PhotoAdapter adapter)
     {
         this.handlerThread = new HandlerThread("Database");
         handlerThread.start();
         this.albumDatabase = new AlbumDatabase(mainFragment.getContext());
         this.photoDatabase = new PhotoDatabase(mainFragment.getContext());
+        this.adapter = adapter;
     }
 
-    public ArrayList<Photo> getPhotos(Context context, String name)
+    public void getPhotos(Context context, String name, ArrayList<Photo> photos)
     {
         Handler handler = new Handler(handlerThread.getLooper());
 
         if (context instanceof HomeView){
-            ArrayList<Photo> albums = new ArrayList<>();
-            handler.post(new DatabaseQueryRunnable(albumDatabase, albums, null));
-            return albums;
+            handler.post(new DatabaseQueryRunnable(albumDatabase, adapter, photos, null));
+
         } else {
-            ArrayList<Photo> photos = new ArrayList<>();
-            handler.post(new DatabaseQueryRunnable(photoDatabase, photos, name));
-            return photos;
+            handler.post(new DatabaseQueryRunnable(photoDatabase, adapter, photos, name));
         }
 
     }
