@@ -4,7 +4,7 @@ Gallery256 is a simple way to store and view encrypted images in android.
 
 # Disclaimer
 
-This project is a work in progress. Many features are not yet implemented. This app has never been audited and is not designed to protect against sophisticated adversaries. This is intended for use by those whose threatmodel is beyond nosey roomates or techy-savy phone-thiefs.
+This project is a work in progress. Many features are not yet implemented. This app has never been audited and is not designed to protect against sophisticated adversaries. This is intended for use by those whose threat model is nosey roomates or techy-savy phone-thiefs.
 
 # Overview
 
