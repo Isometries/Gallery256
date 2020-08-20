@@ -1,4 +1,4 @@
-package com.iso.gallery256.View.activities;
+package com.iso.gallery256.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.presenters.MainPresenter;
+import com.iso.gallery256.Presenter.MainPresenter;
 
 public class MainActivity extends AppCompatActivity {
 

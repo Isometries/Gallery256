@@ -1,11 +1,10 @@
-package com.iso.gallery256.View.activities;
+package com.iso.gallery256.Activity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iso.gallery256.Model.Photo;
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.adapters.PhotoAdapter;
-import com.iso.gallery256.View.presenters.FragmentPresenter;
+import com.iso.gallery256.adapters.PhotoAdapter;
+import com.iso.gallery256.Presenter.FragmentPresenter;
 
 import java.util.ArrayList;
 

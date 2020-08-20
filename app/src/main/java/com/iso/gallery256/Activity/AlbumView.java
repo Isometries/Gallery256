@@ -1,4 +1,4 @@
-package com.iso.gallery256.View.activities;
+package com.iso.gallery256.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.presenters.PhotoPresenter;
+import com.iso.gallery256.Presenter.PhotoPresenter;
 
 import java.security.InvalidKeyException;
 

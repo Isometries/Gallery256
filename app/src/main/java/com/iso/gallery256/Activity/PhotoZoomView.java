@@ -1,14 +1,13 @@
-package com.iso.gallery256.View.activities;
+package com.iso.gallery256.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.presenters.PhotoZoomViewPresenter;
+import com.iso.gallery256.Presenter.PhotoZoomViewPresenter;
 
 import java.net.URI;
 

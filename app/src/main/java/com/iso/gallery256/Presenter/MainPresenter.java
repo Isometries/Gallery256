@@ -1,4 +1,4 @@
-package com.iso.gallery256.View.presenters;
+package com.iso.gallery256.Presenter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.activities.HomeView;
-import com.iso.gallery256.View.activities.MainActivity;
+import com.iso.gallery256.Activity.HomeView;
+import com.iso.gallery256.Activity.MainActivity;
 
 public class MainPresenter implements PresenterBase {
 

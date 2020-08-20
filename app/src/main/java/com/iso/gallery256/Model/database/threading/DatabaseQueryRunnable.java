@@ -1,12 +1,11 @@
 package com.iso.gallery256.Model.database.threading;
 
 import android.app.Activity;
-import android.os.Looper;
 import android.util.Log;
 
 import com.iso.gallery256.Model.Photo;
 import com.iso.gallery256.Model.database.BaseDatabase;
-import com.iso.gallery256.View.adapters.PhotoAdapter;
+import com.iso.gallery256.adapters.PhotoAdapter;
 
 import java.util.ArrayList;
 

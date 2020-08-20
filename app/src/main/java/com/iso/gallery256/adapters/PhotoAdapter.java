@@ -1,4 +1,4 @@
-package com.iso.gallery256.View.adapters;
+package com.iso.gallery256.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,10 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.activities.AlbumView;
-import com.iso.gallery256.View.activities.PhotoZoomView;
+import com.iso.gallery256.Activity.AlbumView;
+import com.iso.gallery256.Activity.PhotoZoomView;
 
-import java.net.URI;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
 

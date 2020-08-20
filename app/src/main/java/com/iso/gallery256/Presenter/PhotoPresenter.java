@@ -1,4 +1,4 @@
-package com.iso.gallery256.View.presenters;
+package com.iso.gallery256.Presenter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

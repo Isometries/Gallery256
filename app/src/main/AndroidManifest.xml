@@ -25,7 +25,7 @@
             android:value="true" />
 
         <activity
-            android:name=".View.activities.PhotoZoomView"
+            android:name=".Activity.PhotoZoomView"
             android:label="@string/title_activity_photo_view">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,9 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.activities.AlbumView" />
-        <activity android:name=".View.activities.HomeView" />
-        <activity android:name=".View.activities.MainActivity">
+        <activity android:name=".Activity.AlbumView" />
+        <activity android:name=".Activity.HomeView" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,24 +1,23 @@
-package com.iso.gallery256.View.presenters;
+package com.iso.gallery256.Presenter;
 
 
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 
 import androidx.fragment.app.Fragment;
 
 
 import com.iso.gallery256.Model.database.threading.DatabaseQueryRunnable;
-import com.iso.gallery256.View.activities.HomeView;
+import com.iso.gallery256.Activity.HomeView;
 
 import java.util.ArrayList;
 
 import com.iso.gallery256.Model.Photo;
 import com.iso.gallery256.Model.database.AlbumDatabase;
 import com.iso.gallery256.Model.database.PhotoDatabase;
-import com.iso.gallery256.View.adapters.PhotoAdapter;
+import com.iso.gallery256.adapters.PhotoAdapter;
 
 
 public class FragmentPresenter {

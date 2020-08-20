@@ -1,18 +1,15 @@
-package com.iso.gallery256.View.activities;
+package com.iso.gallery256.Activity;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.iso.gallery256.R;
-import com.iso.gallery256.View.presenters.PhotoPresenter;
+import com.iso.gallery256.Presenter.PhotoPresenter;
 
 import java.security.InvalidKeyException;
 

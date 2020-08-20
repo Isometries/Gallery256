@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.activities.HomeView">
+    tools:context=".Activity.HomeView">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/photo_fragment1"
-        class="com.iso.gallery256.View.activities.PhotoDisplayFragment"
+        class="com.iso.gallery256.Activity.PhotoDisplayFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="173dp"
