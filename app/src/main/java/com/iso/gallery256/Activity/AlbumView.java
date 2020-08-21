@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +40,7 @@ public class AlbumView extends AppCompatActivity {
                 Log.d("AlbumView onClick", "Activated in onClick");
                 Intent intent = new Intent();
                 intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
                 startActivityForResult(
@@ -55,11 +58,8 @@ public class AlbumView extends AppCompatActivity {
 
             case 1:
                 if (data != null) {
-                    try {
-                        presenter.addPhoto(data, albumName,  getContentResolver());
-                    } catch (InvalidKeyException e) {
-                        e.printStackTrace();
-                    }
+                    presenter.addPhotos(data, albumName, getContentResolver());
+//                        presenter.addPhoto(data, albumName,  getContentResolver());
                 }
                 break;
         }
