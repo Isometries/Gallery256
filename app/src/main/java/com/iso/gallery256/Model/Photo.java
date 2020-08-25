@@ -2,10 +2,6 @@ package com.iso.gallery256.Model;
 
 public class Photo {
 
-    /** TODO:
-        fill in place holder intance vars
-    */
-
     String photoLocation, name;
     byte[] thumbnail;
     int albumID;

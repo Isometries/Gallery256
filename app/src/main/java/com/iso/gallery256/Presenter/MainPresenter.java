@@ -25,7 +25,7 @@ public class MainPresenter implements PresenterBase {
 
     public void setParams(EditText password)
     {
-        //check decryption succes
+        //check decryption success
         this.passphrase = password.getText().toString();
         String PLACEHOLDER;
         if (true) {
@@ -33,12 +33,6 @@ public class MainPresenter implements PresenterBase {
         } else {
             mainContext.showMessage("Decryption Failed");
         }
-    }
-
-    @Override
-    public void onResume()
-    {
-
     }
 
     @Override
@@ -53,12 +47,6 @@ public class MainPresenter implements PresenterBase {
             mainContext.startActivity(intent);
         }
         //add password reset logic here
-    }
-
-    @Override
-    public void onDestroy()
-    {
-
     }
 
     @Override

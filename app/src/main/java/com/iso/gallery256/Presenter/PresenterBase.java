@@ -9,11 +9,7 @@ public interface PresenterBase {
         flesh-out all model classes
      */
 
-    void onResume();
-
     void onItemClicked(View v);
-
-    void onDestroy();
 
     Context getMainContext();
 }

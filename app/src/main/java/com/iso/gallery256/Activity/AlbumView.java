@@ -4,16 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.iso.gallery256.R;
 import com.iso.gallery256.Presenter.PhotoPresenter;
-
-import java.security.InvalidKeyException;
 
 public class AlbumView extends AppCompatActivity {
 

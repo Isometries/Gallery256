@@ -1,7 +1,5 @@
 package com.iso.gallery256.Presenter;
 
-
-
 import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -19,13 +17,13 @@ import com.iso.gallery256.Model.database.AlbumDatabase;
 import com.iso.gallery256.Model.database.PhotoDatabase;
 import com.iso.gallery256.adapters.PhotoAdapter;
 
-
 public class FragmentPresenter {
 
     private AlbumDatabase albumDatabase; //must inherent from base  database
     private PhotoDatabase photoDatabase;
     private HandlerThread handlerThread;
     private PhotoAdapter adapter;
+    private Context context;
 
     public FragmentPresenter(Fragment mainFragment, PhotoAdapter adapter)
     {
@@ -34,6 +32,7 @@ public class FragmentPresenter {
         this.albumDatabase = new AlbumDatabase(mainFragment.getContext());
         this.photoDatabase = new PhotoDatabase(mainFragment.getContext());
         this.adapter = adapter;
+        this.context = mainFragment.getContext();
     }
 
     public void getPhotos(Context context, String name, ArrayList<Photo> photos)
@@ -46,12 +45,5 @@ public class FragmentPresenter {
         } else {
             handler.post(new DatabaseQueryRunnable(photoDatabase, adapter, photos, name));
         }
-
     }
-
-    //set up refresh method
-
-
-
-
 }

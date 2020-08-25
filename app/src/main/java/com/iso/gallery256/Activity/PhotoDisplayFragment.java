@@ -62,11 +62,4 @@ public class PhotoDisplayFragment extends Fragment
     }
 
 
-
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-    }
-
 }

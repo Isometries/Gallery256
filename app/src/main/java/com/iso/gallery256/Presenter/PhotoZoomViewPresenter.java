@@ -11,16 +11,13 @@ import com.iso.gallery256.Utils.FileHandler;
 
 public class PhotoZoomViewPresenter {
 
-    private Context context;
     private URI uri;
-    private EncryptionHelper cryptoStream;
     private FileHandler fileHandler;
 
     public PhotoZoomViewPresenter(Context context, URI uri)
     {
-        this.context = context;
         this.uri = uri;
-        this.cryptoStream = new EncryptionHelper(context);
+        EncryptionHelper cryptoStream = new EncryptionHelper(context);
         this.fileHandler = new FileHandler(context);
     }
 

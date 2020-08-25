@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iso.gallery256.Activity.MainActivity;
 import com.iso.gallery256.R;
 import com.iso.gallery256.Activity.AlbumView;
 import com.iso.gallery256.Activity.PhotoZoomView;
@@ -44,7 +46,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) //sety size of cards here
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.row_layout, parent, false);
@@ -91,11 +93,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void setPhoto(Photo photo) throws InvalidKeyException
         {
             byte[] ciphertext = photo.getThumbNail();
-//            String fileName = Conversions.getFileNamefromURI(URI.create(photo.getPhotoLocation()));
             byte[] plaintext = cryptoStream.decryptByteArray(ciphertext, photo.getPhotoLocation());
-
-            this.photo = photo;
-            cardView.setImageBitmap(Conversions.BytestoBMP(plaintext));
+            if (plaintext == null || plaintext.length == 0) {
+                displayEncryptionError();
+            } else {
+                this.photo = photo;
+                cardView.setImageBitmap(Conversions.BytestoBMP(plaintext));
+            }
         }
 
         @Override
@@ -105,7 +109,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (context instanceof AlbumView) {
                 Intent myIntent = new Intent(context, PhotoZoomView.class);
                 myIntent.putExtra("location", photo.getPhotoLocation());
-//                Log.d("HomeView Intent", context.getStringExtra("password"));
                 myIntent.putExtra("password", ((Activity) context).getIntent().getStringExtra("password"));
                 context.startActivity(myIntent);
             } else {
@@ -116,6 +119,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 context.startActivity(myIntent);
             }
+        }
+
+        private void displayEncryptionError()
+        {
+            Toast.makeText(context, "Encryption Key error", Toast.LENGTH_SHORT).show();
+            Intent myIntent = new Intent(context, MainActivity.class);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(myIntent);
         }
 
     }

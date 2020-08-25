@@ -15,9 +15,7 @@ import android.widget.TextView;
 
 
 import java.io.File;
-import java.net.URI;
 import java.security.InvalidKeyException;
-import java.util.ArrayList;
 
 import com.iso.gallery256.Crypto.EncryptionHelper;
 import com.iso.gallery256.Model.database.threading.DatabaseAddRunnable;
@@ -53,7 +51,6 @@ public class PhotoPresenter {
         File encryptedFile  = Conversions.createEncryptedPhoto(photoFile, mainContext);
         String photoLocation = encryptedFile.toURI().toString();
 
-//        String fileName = Conversions.getFileNamefromURI(URI.create(photoLocation));
         byte[] imageArray = Conversions.getBytesfromFile(photoFile);
         byte[] thumbnail = cryptoStream.encryptByteArray(Conversions.getThumbnailfromFile(imageArray), photoLocation);
 
@@ -96,7 +93,6 @@ public class PhotoPresenter {
                 Uri uri = item.getUri();
                 handler.post(new DatabaseAddRunnable(this, uri, contentResolver, albumName, progressText, ll, jobSize, i+1));
             }
-
         } else if (data.getData() != null) {
             try {
                 addPhoto(data.getData(), albumName, contentResolver);
@@ -104,8 +100,5 @@ public class PhotoPresenter {
                 e.printStackTrace();
             }
         }
-
-
     }
-
 }

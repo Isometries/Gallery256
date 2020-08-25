@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.iso.gallery256.Presenter.PhotoPresenter;
-import com.iso.gallery256.R;
 
 import java.security.InvalidKeyException;
 
