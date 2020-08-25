@@ -43,9 +43,9 @@ public class AlbumView extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
-                startActivityForResult(
-                        Intent.createChooser(intent, "Complete action using"),
-                        1);
+//                startActivityForResult(
+//                        Intent.createChooser(intent, "Complete action using"),
+//                        1);
             }
         });
     }

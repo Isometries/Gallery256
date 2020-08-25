@@ -79,11 +79,18 @@ public class PhotoPresenter {
         Handler handler = new Handler(handlerThread.getLooper());
 
         ClipData clipData = data.getClipData();
-
-        for (int i = 0; i < clipData.getItemCount(); i++) {
-            ClipData.Item item = clipData.getItemAt(i);
-            Uri uri = item.getUri();
-            handler.post(new DatabaseAddRunnable(this, uri, contentResolver, albumName));
+        if (data.getClipData() != null) {
+            for (int i = 0; i < clipData.getItemCount(); i++) {
+                ClipData.Item item = clipData.getItemAt(i);
+                Uri uri = item.getUri();
+                handler.post(new DatabaseAddRunnable(this, uri, contentResolver, albumName));
+            }
+        } else if (data.getData() != null) {
+            try {
+                addPhoto(data.getData(), albumName, contentResolver);
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            }
         }
 
 
