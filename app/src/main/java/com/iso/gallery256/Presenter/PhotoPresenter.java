@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import java.io.File;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 
 import com.iso.gallery256.Crypto.EncryptionHelper;
 import com.iso.gallery256.Model.database.threading.DatabaseAddRunnable;
+import com.iso.gallery256.R;
 import com.iso.gallery256.Utils.Conversions;
 import com.iso.gallery256.Model.database.AlbumDatabase;
 import com.iso.gallery256.Model.database.PhotoDatabase;
@@ -78,13 +82,21 @@ public class PhotoPresenter {
         handlerThread.start();
         Handler handler = new Handler(handlerThread.getLooper());
 
-        ClipData clipData = data.getClipData();
         if (data.getClipData() != null) {
-            for (int i = 0; i < clipData.getItemCount(); i++) {
+            LinearLayout ll = (LinearLayout) mainContext.findViewById(R.id.llProgressBar);
+            TextView progressText = ll.findViewById(R.id.pbText);
+
+            ClipData clipData = data.getClipData();
+            int jobSize = clipData.getItemCount();
+
+            ll.setVisibility(View.VISIBLE);
+
+            for (int i = 0; i < jobSize; i++) {
                 ClipData.Item item = clipData.getItemAt(i);
                 Uri uri = item.getUri();
-                handler.post(new DatabaseAddRunnable(this, uri, contentResolver, albumName));
+                handler.post(new DatabaseAddRunnable(this, uri, contentResolver, albumName, progressText, ll, jobSize, i+1));
             }
+
         } else if (data.getData() != null) {
             try {
                 addPhoto(data.getData(), albumName, contentResolver);
