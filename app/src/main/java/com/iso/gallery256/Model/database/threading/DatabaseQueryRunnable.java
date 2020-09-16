@@ -27,11 +27,10 @@ public class DatabaseQueryRunnable implements Runnable {
     @Override
     public void run() {
         Log.d("Threading", "Running...");
-        ArrayList<Photo> tmp = new ArrayList<>();
+        ArrayList<Photo> tmp;
         if (name != null) {
             Log.d("Threading", name);
             tmp = database.getPhotos(name);
-
         } else {
             tmp = database.getAlbums();
         }

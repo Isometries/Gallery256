@@ -33,7 +33,6 @@ public class FileHandler {
             photoDir.mkdir();
         }
         cryptoStream = new EncryptionHelper(appContext);
-
     }
 
     public File createFile(String fileName)
@@ -75,6 +74,12 @@ public class FileHandler {
             e.printStackTrace();
         }
         return plaintext;
+    }
+
+    public void deleteFile(URI uri)
+    {
+        File file = new File(uri);
+        file.delete();
     }
 
 }

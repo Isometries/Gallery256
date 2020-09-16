@@ -6,8 +6,6 @@ public class Photo {
     byte[] thumbnail;
     int albumID;
 
-
-
     public Photo(String name, String photoLocation, byte[] thumbNail,  int albumID)
     {
         this.photoLocation = photoLocation;

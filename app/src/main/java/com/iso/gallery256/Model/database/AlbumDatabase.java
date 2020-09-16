@@ -28,5 +28,7 @@ public class AlbumDatabase extends BaseDatabase {
         addPhoto(name, photoLocation, thumbnail, albumID);
     }
 
-    public void deleteAlbum(){}//deal with deletion later
+    public ArrayList<Photo> deleteAlbum(String albumName) {
+        return deletePhotosbyName(albumName);
+    }
 }

@@ -11,27 +11,12 @@ import com.iso.gallery256.Presenter.PhotoPresenter;
 
 import java.security.InvalidKeyException;
 
-public class DatabaseAddRunnable implements Runnable {
-
-    PhotoPresenter presenter;
-    Uri uri;
-    ContentResolver contentResolver;
-    String albumName;
-    TextView progressText;
-    LinearLayout ll;
-    int jobSize, complete;
+public class DatabaseAddRunnable extends DatabaseRunnable {
 
     public DatabaseAddRunnable(PhotoPresenter photoPresenter, Uri uri, ContentResolver contentResolver, String albumName,
                                TextView progressText, LinearLayout ll, int jobSize, int complete)
     {
-        presenter = photoPresenter;
-        this.uri = uri;
-        this.contentResolver = contentResolver;
-        this.albumName = albumName;
-        this.progressText = progressText;
-        this.jobSize = jobSize;
-        this.complete = complete;
-        this.ll = ll;
+        super(photoPresenter, uri, contentResolver, albumName, progressText, ll, jobSize, complete);
     }
 
     @Override

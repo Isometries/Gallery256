@@ -15,14 +15,20 @@ import android.widget.TextView;
 
 
 import java.io.File;
+import java.net.URI;
 import java.security.InvalidKeyException;
+import java.util.ArrayList;
 
 import com.iso.gallery256.Crypto.EncryptionHelper;
+import com.iso.gallery256.Model.Photo;
 import com.iso.gallery256.Model.database.threading.DatabaseAddRunnable;
+import com.iso.gallery256.Model.database.threading.DatabaseDeleteRunnable;
+
 import com.iso.gallery256.R;
 import com.iso.gallery256.Utils.Conversions;
 import com.iso.gallery256.Model.database.AlbumDatabase;
 import com.iso.gallery256.Model.database.PhotoDatabase;
+import com.iso.gallery256.Utils.FileHandler;
 
 
 public class PhotoPresenter {
@@ -99,6 +105,31 @@ public class PhotoPresenter {
             } catch (InvalidKeyException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void deletePhotos(String albumName, ContentResolver contentResolver)
+    {
+        HandlerThread handlerThread = new HandlerThread("Database_delete");
+        handlerThread.start();
+        Handler handler = new Handler(handlerThread.getLooper());
+
+        LinearLayout ll = (LinearLayout) mainContext.findViewById(R.id.llProgressBar);
+        TextView progressText = ll.findViewById(R.id.pbText);
+        progressText.setVisibility(View.INVISIBLE);
+        progressText.setText("Deleting album...");
+        handler.post(new DatabaseDeleteRunnable(this, null, contentResolver, albumName, progressText, ll, 0, 0));
+    }
+
+    public void photoDeleter(String albumName, ContentResolver contentresolver)
+    {
+        FileHandler fileHandler = new FileHandler(mainContext);
+        ArrayList<Photo> tmp;
+        tmp = albumDatabase.deleteAlbum(albumName);
+        fileHandler.deleteFile(URI.create(tmp.get(0).getPhotoLocation()));
+        tmp = photoDatabase.deletePhotosbyName(albumName);
+        for (Photo photo : tmp) {
+            fileHandler.deleteFile(URI.create(photo.getPhotoLocation()));
         }
     }
 }
