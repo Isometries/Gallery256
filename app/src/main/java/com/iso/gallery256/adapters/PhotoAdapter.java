@@ -3,6 +3,8 @@ package com.iso.gallery256.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iso.gallery256.Activity.HomeView;
 import com.iso.gallery256.Activity.MainActivity;
 import com.iso.gallery256.R;
 import com.iso.gallery256.Activity.AlbumView;
@@ -31,6 +34,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     Fragment fragment;
     ArrayList<Photo> photos;
+    private ArrayList<Photo> deleteQueue;
+    CustomPhotoAdapter vh;
 
     public PhotoAdapter(Fragment fragment, ArrayList<Photo> photos)
     {
@@ -44,13 +49,18 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return fragment;
     }
 
+    public ArrayList<Photo> getDeleteQueue()
+    {
+        return vh.deleteQueue;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.row_layout, parent, false);
-        CustomPhotoAdapter vh = new CustomPhotoAdapter(v, parent.getContext());
+        vh = new CustomPhotoAdapter(v, parent.getContext());
         return vh;
     }
 
@@ -74,12 +84,13 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return photos.size();
     }
 
-    public static class CustomPhotoAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class CustomPhotoAdapter extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private ImageView cardView;
         private Photo photo;
         private Context context;
         private EncryptionHelper cryptoStream;
+        private ArrayList<Photo> deleteQueue;
 
         public CustomPhotoAdapter(@NonNull View itemView, Context context)
         {
@@ -87,6 +98,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             cardView = itemView.findViewById(R.id.image);
             this.context = context;
             cardView.setOnClickListener(this);
+            cardView.setOnLongClickListener(this);
             cryptoStream = new EncryptionHelper(context);
         }
 
@@ -129,5 +141,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             context.startActivity(myIntent);
         }
 
+        @Override
+        public boolean onLongClick(View view) {
+            cardView.getDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.LIGHTEN);
+            if (deleteQueue == null) {
+                deleteQueue = new ArrayList<>();
+            }
+            deleteQueue.add(photo);
+            return true;
+        }
     }
 }

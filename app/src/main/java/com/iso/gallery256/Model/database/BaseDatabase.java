@@ -14,6 +14,7 @@ import com.iso.gallery256.Model.Photo;
 
 public abstract class BaseDatabase extends SQLiteOpenHelper {
 
+
     public BaseDatabase(Context context, String databaseName, int databaseVersion)
     {
         super(context, databaseName, null, databaseVersion);
@@ -102,22 +103,11 @@ public abstract class BaseDatabase extends SQLiteOpenHelper {
     public ArrayList<Photo> deletePhotosbyName(String albumName)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "DELETE name, photo_location, thumbnail, album_id FROM "
-                + DatabaseContract.DataTable.TABLE_DESCRIPTION
-                + " WHERE " + DatabaseContract.DataTable.KEY_NAME + "=?";
         String[] searchParam = new String[] {albumName};
-        Cursor cursor = db.rawQuery(query, searchParam);
-
         ArrayList<Photo> photoList = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            Photo entry = new Photo(
-                    cursor.getString(cursor.getColumnIndex(DatabaseContract.DataTable.KEY_NAME)),
-                    cursor.getString(cursor.getColumnIndex(DatabaseContract.DataTable.KEY_PHOTO_LOCATION)),
-                    cursor.getBlob(cursor.getColumnIndex(DatabaseContract.DataTable.KEY_THUMBNAIL)),
-                    cursor.getInt(cursor.getColumnIndex(DatabaseContract.DataTable.KEY_ALBUM_ID))
-            );
-            photoList.add(entry);
-        }
+
+        db.delete(DatabaseContract.DataTable.TABLE_DESCRIPTION, DatabaseContract.DataTable.KEY_NAME + "=?", searchParam);
+
         return photoList;
     }
 

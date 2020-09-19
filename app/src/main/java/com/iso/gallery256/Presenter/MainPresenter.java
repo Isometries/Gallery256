@@ -9,7 +9,7 @@ import com.iso.gallery256.R;
 import com.iso.gallery256.Activity.HomeView;
 import com.iso.gallery256.Activity.MainActivity;
 
-public class MainPresenter implements PresenterBase {
+public class MainPresenter {
 
      /* TO DO
         flesh-out all model classes
@@ -35,7 +35,6 @@ public class MainPresenter implements PresenterBase {
         }
     }
 
-    @Override
     public void onItemClicked(View v)
     {
         if (v.getId() == R.id.unlock_button) {
@@ -49,7 +48,6 @@ public class MainPresenter implements PresenterBase {
         //add password reset logic here
     }
 
-    @Override
     public Context getMainContext()
     {
         return null;

@@ -1,10 +1,12 @@
 package com.iso.gallery256.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,13 +26,16 @@ public class PhotoDisplayFragment extends Fragment
     private GridLayoutManager gridLayout;
     private ArrayList<Photo> photos = null;
     private PhotoAdapter adapter;
+    private Button deleteButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         this.photos = new ArrayList<Photo>();
         this.adapter = new PhotoAdapter(this, this.photos);
+
         presenter = new FragmentPresenter(this, this.adapter);
     }
 
@@ -46,6 +51,13 @@ public class PhotoDisplayFragment extends Fragment
     public void onActivityCreated (Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        this.deleteButton = getActivity().findViewById(R.id.del_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.deletePhotos();
+            }
+        });
         this.recycler = getView().findViewById(R.id.photo_layout);
         this.gridLayout = new GridLayoutManager(getActivity(), 3); //set this dynamically
         this.recycler.setLayoutManager(gridLayout);

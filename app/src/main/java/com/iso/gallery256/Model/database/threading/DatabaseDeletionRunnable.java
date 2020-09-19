@@ -5,10 +5,11 @@ import android.net.Uri;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.iso.gallery256.Presenter.FragmentPresenter;
 import com.iso.gallery256.Presenter.PhotoPresenter;
 
-public abstract class DatabaseRunnable implements Runnable{
-    PhotoPresenter presenter;
+public class DatabaseDeletionRunnable implements Runnable {
+    FragmentPresenter presenter;
     Uri uri;
     ContentResolver contentResolver;
     String albumName;
@@ -16,7 +17,7 @@ public abstract class DatabaseRunnable implements Runnable{
     LinearLayout ll;
     int jobSize, complete;
 
-    public DatabaseRunnable(PhotoPresenter photoPresenter, Uri uri, ContentResolver contentResolver, String albumName,
+    public DatabaseDeletionRunnable(FragmentPresenter photoPresenter, Uri uri, ContentResolver contentResolver, String albumName,
                             TextView progressText, LinearLayout ll, int jobSize, int complete)
     {
         presenter = photoPresenter;
@@ -30,5 +31,8 @@ public abstract class DatabaseRunnable implements Runnable{
     }
 
     @Override
-    public abstract void run();
+    public void run()
+    {
+        presenter.photoDeleter(albumName, contentResolver);
+    }
 }

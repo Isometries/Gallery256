@@ -25,4 +25,5 @@
         android:text="Add Album"
         tools:layout_editor_absoluteX="264dp"
         tools:layout_editor_absoluteY="22dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
