@@ -102,9 +102,10 @@ public abstract class BaseDatabase extends SQLiteOpenHelper {
 
     public ArrayList<Photo> deletePhotosbyName(String albumName)
     {
+        ArrayList<Photo> photoList = getPhotos(albumName);
         SQLiteDatabase db = this.getReadableDatabase();
         String[] searchParam = new String[] {albumName};
-        ArrayList<Photo> photoList = new ArrayList<>();
+
 
         db.delete(DatabaseContract.DataTable.TABLE_DESCRIPTION, DatabaseContract.DataTable.KEY_NAME + "=?", searchParam);
 

@@ -34,8 +34,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     Fragment fragment;
     ArrayList<Photo> photos;
-    private ArrayList<Photo> deleteQueue;
     CustomPhotoAdapter vh;
+    ArrayList<Photo> deletionQueue = new ArrayList<>();
 
     public PhotoAdapter(Fragment fragment, ArrayList<Photo> photos)
     {
@@ -51,7 +51,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public ArrayList<Photo> getDeleteQueue()
     {
-        return vh.deleteQueue;
+        return deletionQueue;
     }
 
     @NonNull
@@ -60,7 +60,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.row_layout, parent, false);
-        vh = new CustomPhotoAdapter(v, parent.getContext());
+        vh = new CustomPhotoAdapter(v, parent.getContext(), deletionQueue);
         return vh;
     }
 
@@ -90,13 +90,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private Photo photo;
         private Context context;
         private EncryptionHelper cryptoStream;
-        private ArrayList<Photo> deleteQueue;
+        protected ArrayList<Photo> deleteQueue;
 
-        public CustomPhotoAdapter(@NonNull View itemView, Context context)
+        public CustomPhotoAdapter(@NonNull View itemView, Context context, ArrayList<Photo> deleteQueue)
         {
             super(itemView);
             cardView = itemView.findViewById(R.id.image);
             this.context = context;
+            this.deleteQueue = deleteQueue;
             cardView.setOnClickListener(this);
             cardView.setOnLongClickListener(this);
             cryptoStream = new EncryptionHelper(context);
@@ -144,10 +145,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         @Override
         public boolean onLongClick(View view) {
             cardView.getDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.LIGHTEN);
-            if (deleteQueue == null) {
-                deleteQueue = new ArrayList<>();
-            }
             deleteQueue.add(photo);
+            Log.d("OnLongClick", deleteQueue.size() + "");
             return true;
         }
     }

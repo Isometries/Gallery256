@@ -58,8 +58,10 @@ public class PhotoPresenter {
         byte[] imageArray = Conversions.getBytesfromFile(photoFile);
         byte[] thumbnail = cryptoStream.encryptByteArray(Conversions.getThumbnailfromFile(imageArray), photoLocation);
 
-        albumDatabase.addAlbum(name, photoLocation, thumbnail, 1);
-        photoDatabase.addPhoto(name, photoLocation, thumbnail, 1);
+//        albumDatabase.addAlbum(name, photoLocation, thumbnail, 1);
+//        photoDatabase.addPhoto(name, photoLocation, thumbnail, 1);
+        albumDatabase.addAlbum(photoLocation, photoLocation, thumbnail, 1);
+        photoDatabase.addPhoto(photoLocation, photoLocation, thumbnail, 1);
     }
 
     public void addPhoto(Uri imageUri, String albumName,  ContentResolver contentResolver) throws InvalidKeyException
