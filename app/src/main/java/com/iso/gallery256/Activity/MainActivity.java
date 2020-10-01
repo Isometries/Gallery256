@@ -48,8 +48,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                new String[]{Manifest.permission.INTERNET,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        },
                 1);
+
+//        ActivityCompat.requestPermissions(MainActivity.this,
+//                new String[]{Manifest.permission.INTERNET},
+//                2);
     }
 
     @Override
@@ -57,12 +63,25 @@ public class MainActivity extends AppCompatActivity {
                                            String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 1: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
-                    Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                if (grantResults.length > 0) {
+                    if (grantResults[1] == PackageManager.PERMISSION_DENIED && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        Toast.makeText(MainActivity.this, "Permission denied to read your External storage and access internet", Toast.LENGTH_SHORT).show();
+                    } else if (grantResults[1] == PackageManager.PERMISSION_DENIED) {
+                        Toast.makeText(MainActivity.this, "Permission denied to use internet", Toast.LENGTH_SHORT).show();
+                    } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
+
+//            case 2: {
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Permission denied to use internet", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            }
         }
     }
 
